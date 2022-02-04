@@ -1,0 +1,25 @@
+<div class="container mt-5">
+  <%= render 'shared/back' %>
+  <h2 class="text-center">회원가입</h2>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <div class="my-4">
+      <label for="InputEmail" class="form-label">이메일</label>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", id: "InputEmail" %>
+    </div>
+    <div class="mb-4">
+      <label for="InputPassword" class="form-label">비밀번호</label>
+      <% if @minimum_password_length %>
+      <em>(최소 <%= @minimum_password_length %>글자)</em>
+      <% end %><br />
+      <%= f.password_field :password, class: "form-control", id: "InputPassword", autocomplete: "new-password" %>
+    </div>
+    <div class="mb-4">
+      <label for="PasswordConfirm" class="form-label">비밀번호 확인</label>
+      <%= f.password_field :password_confirmation, class: "form-control", id: "PasswordConfirm", autocomplete: "new-password" %>
+    </div>
+    <%= f.submit "회원가입", class: "ringle-button text-white py-2 d-grid gap-2 col-6 mx-auto no-border"  %>
+  <% end %>
+  <div class="text-center mt-2">
+    <%= link_to "로그인", new_session_path(resource_name), class: "green-button text-white py-2 d-grid gap-2 col-6 mx-auto no-border no-line" %>
+  </div>
+</div>

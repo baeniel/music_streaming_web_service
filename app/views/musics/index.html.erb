@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="search-container mt-5">
+    <%= search_form_for @keyword, class: "form-inline row mr-3" do |f| %>
+      <div class="col-2 text-center">
+        <%= link_to root_path do %>
+          <%= image_tag '/ringle.jpeg', style: "width: 60%;" %>
+        <% end %>
+      </div>
+      <div class="col-5 d-flex align-items-center flex-nowrap">
+        <%= f.search_field :title_or_artist_name_or_album_name_cont, class: "form-control no-border-radius", type: :search %>
+        <button class="btn btn-primary no-border-radius" type="submit"><i class="fas fa-search"></i></button>
+      </div>
+      <div class="col-2"></div>
+    <% end %>
+  </div>
+  <%= render 'musics/result', musics: @musics %>
+</div>

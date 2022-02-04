@@ -1,0 +1,16 @@
+<div class="container mt-5">
+  <%= render 'shared/back' %>
+  <h2 class="text-center">로그인</h2>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="my-4">
+      <label for="InputEmail" class="form-label">이메일</label>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", id: "InputEmail" %>
+    </div>
+    <div class="mb-4">
+      <label for="InputPassword" class="form-label">비밀번호</label>
+      <%= f.password_field :password, class: "form-control", id: "InputPassword", autocomplete: "current-password" %>
+    </div>
+    <%= f.submit "로그인", class: "ringle-button text-white py-2 d-grid gap-2 col-6 mx-auto no-border mb-3"  %>
+  <% end %>
+  <%= link_to "아직 회원가입을 안하셨나요?", new_registration_path(resource_name), class: "text-center mt-3" %>
+</div>

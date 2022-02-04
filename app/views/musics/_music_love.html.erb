@@ -1,0 +1,25 @@
+<% if current_user&.user_musics&.find_by(music_type: 1, music: music)&.present? %>
+  <i class="fas fa-heart" onclick="music_love_delete(<%= music.id %>)"></i>
+<% else %>
+  <i class="far fa-heart" onclick="music_love(<%= music.id %>)"></i>
+<% end %>
+&nbsp;<%= UserMusic.where(music: music).count %>
+
+<script>
+  function music_love(music) {
+    $.ajax({
+      url: '/user_musics/',
+      type: 'POST',
+      data: {
+        music: music
+      }
+    });
+  }
+
+  function music_love_delete(music) {
+    $.ajax({
+      url: '/user_musics/' + music,
+      type: 'DELETE'
+    });
+  }
+</script>
