@@ -1,5 +1,5 @@
 class UserMusicsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :find_sort_condition, only: [:create, :destroy]
 
   def index
   end
@@ -21,6 +21,10 @@ class UserMusicsController < ApplicationController
   end
 
   private
+
+  def find_sort_condition
+    @sort_condition = params[:sort_condition]
+  end
 
   def authenticate_user!
     unless user_signed_in?

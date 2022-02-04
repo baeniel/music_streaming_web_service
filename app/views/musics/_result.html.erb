@@ -16,9 +16,11 @@
           <td><%= music.title %></td>
           <td class="ringle-color"><strong><%= music.artist_name %></strong></td>
           <td><%= music.album_name %></td>
-          <td id="music_love_<%= music.id %>">
-            <%= render 'music_love', music: music %>
+          <%# cache music do %>
+          <td id="<%= sort_condition %>_music_love_<%= music.id %>">
+            <%= render 'music_love', music: music, sort_condition: sort_condition %>
           </td>
+          <%# end %>
         </tr>
       <% end %>
     <% else %>

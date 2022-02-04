@@ -6,4 +6,8 @@ class User < ApplicationRecord
 
   has_many :user_musics, dependent: :destroy
   has_many :musics, through: :user_musics
+
+  def has_music_love?(music)
+    self&.user_musics&.find_by(music_type: 1, music: music)&.present?
+  end
 end
