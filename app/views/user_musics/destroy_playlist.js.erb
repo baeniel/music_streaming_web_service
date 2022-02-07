@@ -1,0 +1,4 @@
+// $('#playlist_<%= current_user.id %>').html("<%= j(render('user_musics/playlist', user_musics: @user_musics)) %>")
+setTimeout(function() {
+  window.location.href = '<%= user_musics_path %>';
+}, 500);

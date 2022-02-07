@@ -1,7 +1,7 @@
 <% if current_user&.has_music_love?(music) %>
-  <i class="fas fa-heart" onclick="music_love_delete(<%= music.id %>, '<%= sort_condition %>')"></i>
+  <i class="fas fa-heart clickable" onclick="music_love_delete(<%= music.id %>, '<%= sort_condition %>')" style="color: red;"></i>
 <% else %>
-  <i class="far fa-heart" onclick="music_love(<%= music.id %>, '<%= sort_condition %>')"></i>
+  <i class="far fa-heart clickable" onclick="music_love(<%= music.id %>, '<%= sort_condition %>')"></i>
 <% end %>
 &nbsp;<%= music.user_musics.where(music_type: 1).count %>
 

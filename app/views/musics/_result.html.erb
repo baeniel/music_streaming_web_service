@@ -1,6 +1,14 @@
-<table class="table mt-5">
+<div class="toolbar mt-4">
+  <div class="btn ringle-button text-white" onclick="check_all('<%= sort_condition %>')">전체선택</div>
+  <div class="btn ringle-button text-white" onclick="add_playlists('<%= sort_condition %>')">
+    <i class="fas fa-play"></i>&nbsp;&nbsp;듣기
+  </div>
+</div>
+
+<table class="table">
   <thead>
     <tr>
+      <th scope="col"></th>
       <th scope="col"></th>
       <th scope="col">곡명</th>
       <th scope="col">아티스트명</th>
@@ -13,6 +21,7 @@
       <% musics.each do |music| %>
         <tr>
           <th scope="row"></th>
+          <td><input class="<%= sort_condition %>_music_check" type="checkbox" value=<%= music.id %>></td>
           <td><%= music.title %></td>
           <td class="ringle-color"><strong><%= music.artist_name %></strong></td>
           <td><%= music.album_name %></td>
@@ -27,10 +36,25 @@
       <tr>
         <th scope="row"></th>
         <td>찾으시는 결과가 존재하지 않습니다.</td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td></td><td></td><td></td><td></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<script>
+  <%= render 'shared/select_all_checkbox', sort_condition: sort_condition %>
+  function add_playlists(sort_condition) {
+    <%= render 'shared/music_checks', sort_condition: sort_condition %>
+    if(checks.is(":checked")) {
+      $.ajax({
+        url: '/user_musics/add_playlist',
+        type: 'POST',
+        data: {
+          music: check_array,
+          sort_condition: sort_condition
+        }
+      });
+    }
+  }
+</script>

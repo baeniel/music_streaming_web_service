@@ -4,5 +4,10 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   resources :musics
-  resources :user_musics
+  resources :user_musics do
+    collection do
+      post :add_playlist
+      delete :destroy_playlist
+    end
+  end
 end

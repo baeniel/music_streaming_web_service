@@ -1,0 +1,7 @@
+function check_all(sort_condition) {
+  if($("." + sort_condition + "_music_check").not(":checked").length > 0) {
+    $("." + sort_condition + "_music_check").prop('checked', true);
+  } else {
+    $("." + sort_condition + "_music_check").prop('checked', false);
+  }
+}

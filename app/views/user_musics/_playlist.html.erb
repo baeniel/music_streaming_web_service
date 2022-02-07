@@ -1,0 +1,17 @@
+<% user_musics.includes(:music).each do |user_music| %>
+  <% music = user_music.music %>
+  <div class="row mb-3">
+    <div class="col-1 vertical-center text-center">
+      <input class="general_music_check" type="checkbox" value="<%= music.id %>">
+    </div>
+    <div class="col-3 vertical-center">
+      <%= image_tag '/ringle.jpeg', style: "width: 50%;" %>
+    </div>
+    <div class="col-6 vertical-center">
+      <h4 class="mb-0"><%= music.title %></h4>
+      <small><%= music.artist_name %></small>
+    </div>
+    <div class="col-2 vertical-center"></div>
+  </div>
+  <hr>
+<% end %>

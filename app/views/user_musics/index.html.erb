@@ -1,2 +1,37 @@
-<h1>UserMusics#index</h1>
-<p>Find me in app/views/user_musics/index.html.erb</p>
+<style>
+  .vertical-center {
+    margin-top: auto; margin-bottom: auto;
+  }
+  .scrollable {
+    height: 400px; overflow-y: scroll;
+  }
+</style>
+
+<div class="container mt-5">
+  <h3 class="text-center my-4">재생목록</h3>
+  <div class="toolbar mt-3 mb-4">
+    <div class="btn ringle-button text-white" onclick="check_all('general')">전체선택</div>
+    <div class="btn ringle-button text-white" onclick="remove_playlists('general')">
+      <i class="fas fa-times"></i>&nbsp;&nbsp;삭제
+    </div>
+  </div>
+  <div class="container scrollable">
+    <%= render 'user_musics/playlist', user_musics: @user_musics %>
+  </div>
+</div>
+
+<script>
+  <%= render 'shared/select_all_checkbox', sort_condition: 'general' %>
+  function remove_playlists(sort_condition) {
+    <%= render 'shared/music_checks', sort_condition: 'general' %>
+    if(checks.is(":checked")) {
+      $.ajax({
+        url: '/user_musics/destroy_playlist',
+        type: 'DELETE',
+        data: {
+          music: check_array
+        }
+      });
+    }
+  }
+</script>

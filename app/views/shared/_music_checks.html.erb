@@ -1,0 +1,9 @@
+let checks = $('.' + sort_condition + '_music_check:checked');
+let check_array = []
+if(checks.is(":checked")) {
+  checks.each(function() {
+    check_array.push(this.value)
+  });
+} else {
+  Swal.fire('선택된 곡이 없습니다.')
+}
