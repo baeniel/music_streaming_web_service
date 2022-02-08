@@ -1,18 +1,25 @@
-<% groups.each do |group| %>
-  <div class="row py-3">
-    <div class="col-3">
-      <%= link_to group_path(group), target: "_blank" do %>
-        <%= image_tag group.image.url, class: "clickable square-image" %>
-      <% end %>
+<% if groups.any? %>
+  <% groups.each do |group| %>
+    <div class="row py-3">
+      <div class="col-3 text-center">
+        <%= link_to group_path(group), target: "_blank" do %>
+          <%= image_tag group.image_url, class: "clickable square-image" %>
+        <% end %>
+      </div>
+      <div class="col-6 text-start">
+        <%= link_to group_path(group), class: "no-line ringle-color", target: "_blank" do %>
+          <h5 class="clickable"><%= group.title %></h5>
+        <% end %>
+        <small><%= group.intro %></small><br/>
+        <small style="position: relative; bottom: 0%;"><span class="ringle-color"><%= group.group_musics.count %>곡</span><span class="text-gray-color">&nbsp;|&nbsp;</span><%= group.created_at.strftime("%y.%m.%d") %></small>
+      </div>
+      <div class="col-3"></div>
     </div>
-    <div class="col-6 text-start">
-      <%= link_to group_path(group), class: "no-line ringle-color", target: "_blank" do %>
-        <h5 class="clickable"><%= group.title %></h5>
-      <% end %>
-      <small><%= group.intro %></small><br/>
-      <small style="position: relative; bottom: 0%;"><span class="ringle-color"><%= group.group_musics.count %>곡</span><span class="text-gray-color">&nbsp;|&nbsp;</span><%= group.created_at.strftime("%y.%m.%d") %></small>
-    </div>
-    <div class="col-3"></div>
+    <hr class="mt-0">
+  <% end %>
+<% else %>
+  <p class="mt-4 text-center">그룹이 없습니다.</p>
+  <div class="text-center">
+    <%= link_to "그룹 만들기", new_group_path, class: "no-line text-white btn ringle-button", target: "_blank" %>
   </div>
-  <hr class="mt-0">
 <% end %>

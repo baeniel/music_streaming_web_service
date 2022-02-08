@@ -4,7 +4,7 @@
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="my-4">
       <label for="InputEmail" class="form-label">이메일</label>
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", id: "InputEmail" %>
+      <%= f.email_field :email, autocomplete: "email", class: "form-control", id: "InputEmail" %>
     </div>
     <div class="mb-4">
       <label for="InputPassword" class="form-label">비밀번호</label>
@@ -12,5 +12,6 @@
     </div>
     <%= f.submit "로그인", class: "ringle-button text-white py-2 d-grid gap-2 col-6 mx-auto no-border mb-3"  %>
   <% end %>
-  <%= link_to "아직 회원가입을 안하셨나요?", new_registration_path(resource_name), class: "text-center mt-3" %>
+  <%= link_to "아직 회원가입을 안하셨나요?", new_registration_path(resource_name), class: "my-3 no-line" %> <br>
+  <%= link_to "홈으로 가기", root_path, class: "no-line ringle-color" %>
 </div>

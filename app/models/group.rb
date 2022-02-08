@@ -4,5 +4,8 @@ class Group < ApplicationRecord
   has_many :users, through: :user_groups
 
   has_many :group_musics, dependent: :destroy
-  has_many :musics, through: :group_musics
+
+  def image_url
+    self.image.url.present? ? self.image.url : '/ringle.jpeg'
+  end
 end

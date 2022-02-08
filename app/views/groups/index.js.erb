@@ -1,4 +1,4 @@
-<% if current_user.has_group? %>
+<% if current_user&.has_group? %>
   Swal.fire({
     title: '<h5>그룹 플레이리스트 담기</h5>',
     html:
@@ -20,12 +20,12 @@
         '</div>' +
         '<hr/>' +
       '<% end %>',
-    confirmButtonText: '<a class="no-line text-white" href="<%= new_group_path(music_ids: @music_ids) %>" target="popup">그룹 만들기</a>'
+    confirmButtonText: '<a class="no-line text-white" href="<%= new_group_path(music_ids: @music_ids) %>" target="_blank">그룹 만들기</a>'
   })
 <% else %>
   Swal.fire({
     text: '소속된 그룹이 없습니다.',
-    confirmButtonText: '<a class="no-line text-white" href="<%= new_group_path(music_ids: @music_ids) %>" target="popup">그룹 만들기</a>',
+    confirmButtonText: '<a class="no-line text-white" href="<%= new_group_path(music_ids: @music_ids) %>" target="_blank">그룹 만들기</a>',
   })
 <% end %>
 

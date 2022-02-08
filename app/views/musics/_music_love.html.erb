@@ -3,7 +3,7 @@
 <% else %>
   <i class="far fa-heart clickable" onclick="music_love(<%= music.id %>, '<%= sort_condition %>')"></i>
 <% end %>
-&nbsp;<%= UserMusic.love.where(music: music).count %>
+&nbsp;<%= music.user_musics.love.count %>
 
 <script>
   function music_love(music, sort_condition) {

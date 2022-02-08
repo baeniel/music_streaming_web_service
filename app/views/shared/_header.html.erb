@@ -1,10 +1,14 @@
 <div class="row mt-3">
   <div class="col-9"></div>
   <div class="col-3">
-    <%= current_user.email.split(/(?=\b@\b|\+|&)/)[0] %>님&nbsp;&nbsp;
-    <span class="text-gray-color">|</span>&nbsp;&nbsp;
-    <%= link_to home_my_path, class: "no-line ringle-color" do %>
-      <span class="clickable">마이뮤직&nbsp;<i class="fas fa-user"></i></span>
+    <% if current_user&.present? %>
+      <%= current_user.email.split(/(?=\b@\b|\+|&)/)[0] %>님&nbsp;&nbsp;
+      <span class="text-gray-color">|</span>&nbsp;&nbsp;
+      <%= link_to home_my_path, class: "no-line ringle-color" do %>
+        <span class="clickable">마이뮤직&nbsp;<i class="fas fa-user"></i></span>
+      <% end %>
+    <% else %>
+      <%= link_to "로그인 / 회원가입", new_user_session_path, class: "ringle-color no-line" %>
     <% end %>
   </div>
 </div>

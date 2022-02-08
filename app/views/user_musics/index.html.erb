@@ -13,16 +13,5 @@
 
 <script>
   <%= render 'shared/select_all_checkbox', sort_condition: 'general' %>
-  function remove_playlists(sort_condition) {
-    <%= render 'shared/check_musics', sort_condition: 'general' %>
-    if(checks.is(":checked")) {
-      $.ajax({
-        url: '/user_musics/destroy_playlist',
-        type: 'DELETE',
-        data: {
-          music_ids: check_array
-        }
-      });
-    }
-  }
+  <%= render 'shared/remove_playlists', sort_condition: 'general' %>
 </script>

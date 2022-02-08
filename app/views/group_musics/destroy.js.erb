@@ -3,6 +3,6 @@ Swal.fire({
   confirmButtonText: '확인',
 }).then(function(res) {
   setTimeout(function() {
-    window.location.href = '<%= group_path(@group) %>';
+    location.reload();
   }, 500);
 });
