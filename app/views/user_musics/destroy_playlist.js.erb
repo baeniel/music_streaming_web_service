@@ -1,4 +1,8 @@
-// $('#playlist_<%= current_user.id %>').html("<%= j(render('user_musics/playlist', user_musics: @user_musics)) %>")
-setTimeout(function() {
-  window.location.href = '<%= user_musics_path %>';
-}, 500);
+Swal.fire({
+  text: '삭제되었습니다.',
+  confirmButtonText: '확인',
+}).then(function(res) {
+  setTimeout(function() {
+    window.location.href = '<%= user_musics_path %>';
+  }, 500);
+});

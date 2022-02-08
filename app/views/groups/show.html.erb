@@ -1,0 +1,29 @@
+<div class="container mt-5">
+  <h3 class="text-center my-4">그룹 재생목록</h3>
+  <div class="toolbar mt-3 mb-4">
+    <div class="btn ringle-button text-white" onclick="check_all('general')">전체선택</div>
+    <div class="btn ringle-button text-white" onclick="remove_playlists('general')">
+      <i class="fas fa-times"></i>&nbsp;&nbsp;삭제
+    </div>
+  </div>
+  <div class="container scrollable">
+    <%= render 'groups/group_playlist' %>
+  </div>
+</div>
+
+<script>
+  <%= render 'shared/select_all_checkbox', sort_condition: 'general' %>
+  function remove_playlists(sort_condition) {
+    <%= render 'shared/check_musics', sort_condition: 'general' %>
+    if(checks.is(":checked")) {
+      $.ajax({
+        url: '/group_musics/destroy',
+        type: 'DELETE',
+        data: {
+          music_ids: check_array,
+          group_id: <%= @group.id %>
+        }
+      });
+    }
+  }
+</script>

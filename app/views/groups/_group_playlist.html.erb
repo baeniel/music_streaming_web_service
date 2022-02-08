@@ -1,0 +1,20 @@
+<% @group.group_musics.includes(:music, :user).order(created_at: :desc).each do |group_music| %>
+  <% music = group_music.music %>
+  <% user = group_music.user %>
+  <div class="row mb-3">
+    <div class="col-1 vertical-center text-center">
+      <input class="general_check_music" type="checkbox" value="<%= music.id %>">
+    </div>
+    <div class="col-3 vertical-center">
+      <%= image_tag '/ringle.jpeg', style: "width: 50%;" %>
+    </div>
+    <div class="col-5 vertical-center">
+      <h4 class="mb-0"><%= music.title %></h4>
+      <small><%= music.artist_name %></small>
+    </div>
+    <div class="col-3 vertical-center">
+      <%= user.email %>
+    </div>
+  </div>
+  <hr>
+<% end %>

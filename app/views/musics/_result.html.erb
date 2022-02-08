@@ -1,10 +1,4 @@
-<div class="toolbar mt-4">
-  <div class="btn ringle-button text-white" onclick="check_all('<%= sort_condition %>')">전체선택</div>
-  <div class="btn ringle-button text-white" onclick="add_playlists('<%= sort_condition %>')">
-    <i class="fas fa-play"></i>&nbsp;&nbsp;듣기
-  </div>
-</div>
-
+<%= render 'shared/music_controller', sort_condition: sort_condition %>
 <table class="table">
   <thead>
     <tr>
@@ -21,7 +15,7 @@
       <% musics.each do |music| %>
         <tr>
           <th scope="row"></th>
-          <td><input class="<%= sort_condition %>_music_check" type="checkbox" value=<%= music.id %>></td>
+          <td><input class="<%= sort_condition %>_check_music" type="checkbox" value=<%= music.id %>></td>
           <td><%= music.title %></td>
           <td class="ringle-color"><strong><%= music.artist_name %></strong></td>
           <td><%= music.album_name %></td>
@@ -44,17 +38,5 @@
 
 <script>
   <%= render 'shared/select_all_checkbox', sort_condition: sort_condition %>
-  function add_playlists(sort_condition) {
-    <%= render 'shared/music_checks', sort_condition: sort_condition %>
-    if(checks.is(":checked")) {
-      $.ajax({
-        url: '/user_musics/add_playlist',
-        type: 'POST',
-        data: {
-          music: check_array,
-          sort_condition: sort_condition
-        }
-      });
-    }
-  }
+  <%= render 'shared/add_playlists', sort_condition: sort_condition %>
 </script>

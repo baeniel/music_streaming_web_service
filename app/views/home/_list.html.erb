@@ -1,0 +1,41 @@
+<%= render 'shared/music_controller', sort_condition: sort_condition %>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col">곡명</th>
+      <th scope="col">아티스트명</th>
+      <th scope="col">앨범명</th>
+      <th scope="col">추가 날짜</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if user_musics.any? %>
+      <% user_musics.includes(:music).each do |user_music| %>
+        <% music = user_music.music %>
+        <tr>
+          <th scope="row"></th>
+          <td><input class="<%= sort_condition %>_check_music" type="checkbox" value=<%= music.id %>></td>
+          <td><%= music.title %></td>
+          <td class="ringle-color"><strong><%= music.artist_name %></strong></td>
+          <td><%= music.album_name %></td>
+          <%# cache music do %>
+          <td><%= user_music.created_at.strftime('%y.%m.%d') %></td>
+          <%# end %>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <th scope="row"></th>
+        <td>곡이 없습니다.</td>
+        <td></td><td></td><td></td><td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<script>
+  <%= render 'shared/select_all_checkbox', sort_condition: sort_condition %>
+  <%= render 'shared/add_playlists', sort_condition: sort_condition %>
+</script>

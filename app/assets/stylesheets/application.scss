@@ -12,9 +12,18 @@
 .no-border {
   border: none;
 }
+.no-line {
+  text-decoration: none;
+}
 .clickable {
   cursor: pointer;
 }
-.no-line {
-  text-decoration: none;
+.text-gray-color {
+  color: #818181;
+}
+.vertical-center {
+  margin-top: auto; margin-bottom: auto;
+}
+.scrollable {
+  height: 400px; overflow-y: scroll;
 }

@@ -4,5 +4,5 @@ Swal.fire({
   allowOutsideClick: false,
   confirmButtonText: '<a class="no-line text-white" href="<%= user_musics_path %>" target="_blank">재생목록 확인하기</a>',
 }).then(function(res) {
-  $(".<%= @sort_condition %>_music_check").prop('checked', false);
+  $(".<%= @sort_condition %>_check_music").prop('checked', false);
 });

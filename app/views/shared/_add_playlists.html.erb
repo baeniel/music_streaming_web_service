@@ -1,0 +1,25 @@
+function add_playlists(sort_condition) {
+  <%= render 'shared/check_musics', sort_condition: sort_condition %>
+  if(checks.is(":checked")) {
+    $.ajax({
+      url: '/user_musics/add_playlist',
+      type: 'POST',
+      data: {
+        music: check_array,
+        sort_condition: sort_condition
+      }
+    });
+  }
+}
+function add_grouplist(sort_condition) {
+  <%= render 'shared/check_musics', sort_condition: sort_condition %>
+  if(checks.is(":checked")) {
+    $.ajax({
+      url: '/groups',
+      type: 'GET',
+      data: {
+        music_ids: check_array
+      }
+    });
+  }
+}

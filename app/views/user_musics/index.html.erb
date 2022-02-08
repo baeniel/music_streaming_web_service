@@ -1,12 +1,3 @@
-<style>
-  .vertical-center {
-    margin-top: auto; margin-bottom: auto;
-  }
-  .scrollable {
-    height: 400px; overflow-y: scroll;
-  }
-</style>
-
 <div class="container mt-5">
   <h3 class="text-center my-4">재생목록</h3>
   <div class="toolbar mt-3 mb-4">
@@ -16,20 +7,20 @@
     </div>
   </div>
   <div class="container scrollable">
-    <%= render 'user_musics/playlist', user_musics: @user_musics %>
+    <%= render 'user_musics/playlist' %>
   </div>
 </div>
 
 <script>
   <%= render 'shared/select_all_checkbox', sort_condition: 'general' %>
   function remove_playlists(sort_condition) {
-    <%= render 'shared/music_checks', sort_condition: 'general' %>
+    <%= render 'shared/check_musics', sort_condition: 'general' %>
     if(checks.is(":checked")) {
       $.ajax({
         url: '/user_musics/destroy_playlist',
         type: 'DELETE',
         data: {
-          music: check_array
+          music_ids: check_array
         }
       });
     }

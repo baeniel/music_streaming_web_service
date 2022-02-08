@@ -1,0 +1,41 @@
+<% if current_user.has_group? %>
+  Swal.fire({
+    title: '<h5>그룹 플레이리스트 담기</h5>',
+    html:
+      '<% @groups.each do |group| %>' +
+        '<div class="row">' +
+          '<div class="col-3">' +
+            '<%= image_tag group.image.url, style: "width: 80px; height: 80px;" %>' +
+          '</div>' +
+          '<div class="col-6 text-start">' +
+            '<h5><%= group.title %></h5>' +
+            '<small><%= group.intro %></small><br/>' +
+            '<small style="position: relative; bottom: 0%;"><%= group.group_musics.count %>곡 | <%= group.created_at.strftime("%y.%m.%d") %></small>' +
+          '</div>' +
+          '<div class="col-3 vertical-center">' +
+            '<div class="btn btn-info text-white" onclick="add_group_playlist(<%= @music_ids %>, <%= group.id %>)">' +
+              '선택' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<hr/>' +
+      '<% end %>',
+    confirmButtonText: '<a class="no-line text-white" href="<%= new_group_path(music_ids: @music_ids) %>" target="popup">그룹 만들기</a>'
+  })
+<% else %>
+  Swal.fire({
+    text: '소속된 그룹이 없습니다.',
+    confirmButtonText: '<a class="no-line text-white" href="<%= new_group_path(music_ids: @music_ids) %>" target="popup">그룹 만들기</a>',
+  })
+<% end %>
+
+function add_group_playlist(music_ids, group_id) {
+  $.ajax({
+    url: '/group_musics',
+    type: 'POST',
+    data: {
+      music_ids: music_ids,
+      group_id: group_id
+    }
+  });
+}

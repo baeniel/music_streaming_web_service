@@ -1,0 +1,32 @@
+<style>
+  .square-image {
+    width: 80px; height: 80px;
+  }
+</style>
+
+<div class="container mt-5">
+  <%= render 'shared/back' %>
+  <h3 class="text-center my-4">마이뮤직</h3>
+  <ul class="nav nav-tabs mt-5 justify-content-center" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active ringle-color" id="love-music-tab" data-bs-toggle="tab" data-bs-target="#love_music" type="button" role="tab" aria-selected="true">좋아요 한 곡</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link ringle-color" id="playlist-tab" data-bs-toggle="tab" data-bs-target="#playlist" type="button" role="tab" aria-selected="false">재생목록(<%= @playlists.count %>)</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link ringle-color" id="group-playlist-tab" data-bs-toggle="tab" data-bs-target="#group-playlist" type="button" role="tab" aria-selected="false">그룹재생목록</button>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane fade show active" id="love_music" role="tabpanel" aria-labelledby="love-music-tab">
+      <%= render 'home/list', user_musics: @love_musics, sort_condition: 'love' %>
+    </div>
+    <div class="tab-pane fade" id="playlist" role="tabpanel" aria-labelledby="playlist-tab">
+      <%= render 'home/list', user_musics: @playlists, sort_condition: 'playlist' %>
+    </div>
+    <div class="tab-pane fade" id="group-playlist" role="tabpanel" aria-labelledby="group-playlist-tab">
+      <%= render 'home/group_playlist', groups: @groups, sort_condition: 'group-playlist' %>
+    </div>
+  </div>
+</div>
