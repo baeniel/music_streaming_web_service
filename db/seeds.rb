@@ -9,4 +9,7 @@ csv.each do |row|
   music.album_name = row['album_name']
   music.save
 end
+10.times do |index|
+  User.create(email: "ringle_" + index.to_s + "@com", password: '111111', password_confirmation: "111111")
+end
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?

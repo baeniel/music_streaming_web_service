@@ -13,7 +13,7 @@ class GroupMusicsController < ApplicationController
     # 1개 삭제
     else
       music = Music.find @music_ids.join(",")
-      @group&.group_musics&.where(music: music)&.order(created_at: :desc)&.first&.destroy
+      @group.group_musics.where(music: music).order(created_at: :desc).first.destroy
     end
   end
 

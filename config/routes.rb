@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  root 'home#index'
   get 'home/my'
   get 'home/refresh_playlist'
   devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions', passwords: 'users/passwords' }
@@ -14,4 +13,5 @@ Rails.application.routes.draw do
   end
   resources :groups
   resources :group_musics
+  root 'home#index'
 end

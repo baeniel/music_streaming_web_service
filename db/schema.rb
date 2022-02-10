@@ -10,9 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_08_063354) do
+ActiveRecord::Schema.define(version: 2022_02_10_064337) do
 
-  create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
     t.string "resource_type"
@@ -26,7 +29,7 @@ ActiveRecord::Schema.define(version: 2022_02_08_063354) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
   end
 
-  create_table "admin_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "admin_users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -38,7 +41,7 @@ ActiveRecord::Schema.define(version: 2022_02_08_063354) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
-  create_table "group_musics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "group_musics", force: :cascade do |t|
     t.bigint "group_id", null: false
     t.bigint "music_id", null: false
     t.bigint "user_id", null: false
@@ -49,7 +52,7 @@ ActiveRecord::Schema.define(version: 2022_02_08_063354) do
     t.index ["user_id"], name: "index_group_musics_on_user_id"
   end
 
-  create_table "groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "groups", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -57,16 +60,18 @@ ActiveRecord::Schema.define(version: 2022_02_08_063354) do
     t.text "intro"
   end
 
-  create_table "musics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "musics", force: :cascade do |t|
     t.string "title"
     t.string "artist_name"
     t.string "album_name"
     t.string "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.tsvector "searchable", default: -> { "((setweight(to_tsvector('simple'::regconfig, (COALESCE(title, ''::character varying))::text), 'A'::\"char\") || setweight(to_tsvector('simple'::regconfig, (COALESCE(album_name, ''::character varying))::text), 'B'::\"char\")) || setweight(to_tsvector('simple'::regconfig, (COALESCE(artist_name, ''::character varying))::text), 'C'::\"char\"))" }
+    t.index ["searchable"], name: "index_musics_on_searchable", using: :gin
   end
 
-  create_table "user_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "user_groups", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "group_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -75,7 +80,7 @@ ActiveRecord::Schema.define(version: 2022_02_08_063354) do
     t.index ["user_id"], name: "index_user_groups_on_user_id"
   end
 
-  create_table "user_musics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "user_musics", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "music_id", null: false
     t.integer "music_type", default: 0
@@ -85,7 +90,7 @@ ActiveRecord::Schema.define(version: 2022_02_08_063354) do
     t.index ["user_id"], name: "index_user_musics_on_user_id"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"

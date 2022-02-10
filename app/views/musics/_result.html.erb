@@ -14,16 +14,16 @@
     <% if musics.any? %>
       <% musics.each do |music| %>
         <tr>
-          <th scope="row"></th>
-          <td><input class="<%= sort_condition %>_check_music" type="checkbox" value=<%= music.id %>></td>
-          <td><%= music.title %></td>
-          <td class="ringle-color"><strong><%= music.artist_name %></strong></td>
-          <td><%= music.album_name %></td>
-          <%# cache music do %>
+          <% cache(music) do %>
+            <th scope="row"></th>
+            <td><input class="<%= sort_condition %>_check_music" type="checkbox" value=<%= music.id %>></td>
+            <td><%= music.title %></td>
+            <td class="ringle-color"><strong><%= music.artist_name %></strong></td>
+            <td><%= music.album_name %></td>
+          <% end %>
           <td id="<%= sort_condition %>_music_love_<%= music.id %>">
             <%= render 'music_love', music: music, sort_condition: sort_condition %>
           </td>
-          <%# end %>
         </tr>
       <% end %>
     <% else %>

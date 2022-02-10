@@ -15,17 +15,13 @@
     <% end %>
   </div>
   <div class="search-container mt-5">
-    <%= search_form_for @keyword, class: "form-inline row mx-3" do |f| %>
+    <%= form_tag('/musics', method: :get, class: "form-inline row mx-3") do %>
       <div class="col-2"></div>
       <div class="col-8 d-flex align-items-center flex-nowrap">
-        <%= f.search_field :title_or_artist_name_or_album_name_cont, class: "form-control input-height no-border-radius search-field", placeholder: "곡명, 가수명, 앨범명을 입력하세요.", type: :search, required: true %>
-        <button class="btn btn-primary input-height no-border-radius" type="submit" onclick=check_searchkeyword()><i class="fas fa-search"></i></button>
+        <%= text_field_tag :music_search, "", class: "form-control input-height no-border-radius search-field", placeholder: "곡명, 가수명, 앨범명을 입력하세요." %>
+        <button class="btn btn-primary input-height no-border-radius" type="submit"><i class="fas fa-search"></i></button>
       </div>
       <div class="col-2"></div>
     <% end %>
   </div>
 </div>
-
-<script>
-  <%= render 'shared/prevent_empty_search' %>
-</script>
