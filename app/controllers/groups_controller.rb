@@ -1,6 +1,7 @@
 class GroupsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   before_action :find_musics, except: [:show]
+  before_action :load_object, only: [:show, :destroy]
 
   def index
     @groups = current_user&.groups
@@ -8,9 +9,7 @@ class GroupsController < ApplicationController
 
   def new ;end
 
-  def show
-    @group = Group.find params[:id]
-  end
+  def show ;end
 
   def create
     @group = Group.create(group_params)
@@ -21,6 +20,10 @@ class GroupsController < ApplicationController
     end
   end
 
+  def destroy
+    @group.destroy
+  end
+
   private
 
   def group_params
@@ -29,5 +32,9 @@ class GroupsController < ApplicationController
 
   def find_musics
     @music_ids = params[:music_ids]
+  end
+
+  def load_object
+    @group = Group.find params[:id]
   end
 end

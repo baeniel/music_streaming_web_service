@@ -17,12 +17,12 @@
         <tr>
           <th scope="row"></th>
           <td><input class="<%= sort_condition %>_check_music" type="checkbox" value=<%= music.id %>></td>
-          <td><%= music.title %></td>
-          <td class="ringle-color"><strong><%= music.artist_name %></strong></td>
-          <td><%= music.album_name %></td>
-          <%# cache music do %>
-          <td><%= user_music.created_at.strftime('%y.%m.%d') %></td>
-          <%# end %>
+          <% cache(music) do %>
+            <td><%= music.title %></td>
+            <td class="ringle-color"><strong><%= music.artist_name %></strong></td>
+            <td><%= music.album_name %></td>
+            <td><%= user_music.created_at.strftime('%y.%m.%d') %></td>
+          <% end %>
         </tr>
       <% end %>
     <% else %>

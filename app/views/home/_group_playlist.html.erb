@@ -13,7 +13,11 @@
         <small><%= group.intro %></small><br/>
         <small style="position: relative; bottom: 0%;"><span class="ringle-color"><%= group.group_musics.count %>곡</span><span class="text-gray-color">&nbsp;|&nbsp;</span><%= group.created_at.strftime("%y.%m.%d") %></small>
       </div>
-      <div class="col-3"></div>
+      <div class="col-3 vertical-center">
+        <div class="btn ringle-button text-white" onclick="remove_group(<%= group.id %>)">
+          <i class="fas fa-times"></i>&nbsp;&nbsp;삭제
+        </div>
+      </div>
     </div>
     <hr class="mt-0">
   <% end %>
@@ -23,3 +27,12 @@
     <%= link_to "그룹 만들기", new_group_path, class: "no-line text-white btn ringle-button", target: "_blank" %>
   </div>
 <% end %>
+
+<script>
+  function remove_group(group_id) {
+    $.ajax({
+      url: '/groups/' + group_id,
+      type: 'DELETE'
+    });
+  }
+</script>

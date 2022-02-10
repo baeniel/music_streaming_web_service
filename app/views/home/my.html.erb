@@ -7,7 +7,8 @@
 <div class="container mt-5">
   <%= render 'shared/back' %>
   <h3 class="text-center my-4">마이뮤직</h3>
-  <%= link_to '로그아웃', destroy_user_session_path, method: :DELETE %>
+  <%= link_to '로그아웃', destroy_user_session_path, method: :DELETE %> <br>
+  <%= link_to '홈으로 가기', root_path, class: "no-line ringle-color" %>
   <ul class="nav nav-tabs mt-5 justify-content-center" role="tablist">
     <li class="nav-item" role="presentation">
       <button class="nav-link active ringle-color" id="love-music-tab" data-bs-toggle="tab" data-bs-target="#love_music" type="button" role="tab" aria-selected="true">좋아요 한 곡</button>

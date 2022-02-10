@@ -2,9 +2,10 @@
   <%= render 'shared/back' %>
   <h2 class="text-center">회원가입</h2>
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= render 'layouts/error_message' %>
     <div class="my-4">
       <label for="InputEmail" class="form-label">이메일</label>
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", id: "InputEmail" %>
+      <%= f.email_field :email, autocomplete: "email", class: "form-control", id: "InputEmail" %>
     </div>
     <div class="mb-4">
       <label for="InputPassword" class="form-label">비밀번호</label>

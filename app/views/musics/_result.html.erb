@@ -14,9 +14,9 @@
     <% if musics.any? %>
       <% musics.each do |music| %>
         <tr>
+          <th scope="row"></th>
+          <td><input class="<%= sort_condition %>_check_music" type="checkbox" value=<%= music.id %>></td>
           <% cache(music) do %>
-            <th scope="row"></th>
-            <td><input class="<%= sort_condition %>_check_music" type="checkbox" value=<%= music.id %>></td>
             <td><%= music.title %></td>
             <td class="ringle-color"><strong><%= music.artist_name %></strong></td>
             <td><%= music.album_name %></td>
