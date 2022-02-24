@@ -1,7 +1,5 @@
 class HomeController < ApplicationController
-  def index
-    @keyword = Music.ransack(params[:keyword])
-  end
+  def index ;end
 
   def my
     @love_musics = current_user.user_musics.love.order(created_at: :desc)

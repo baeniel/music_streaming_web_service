@@ -1,6 +1,6 @@
 class UserMusicsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_sort_condition, only: [:create, :destroy]
+  before_action :find_sort_condition, only: [:create, :destroy, :add_playlist]
   before_action :find_musics, only: [:add_playlist, :destroy_playlist]
 
   def index
@@ -21,7 +21,6 @@ class UserMusicsController < ApplicationController
 
   # 재생목록 추가
   def add_playlist
-    @sort_condition = params[:sort_condition]
     # n개 추가
     if @music_ids.length > 1
       AddPlaylistRecordsJob.perform_async(@music_ids, current_user.email)
