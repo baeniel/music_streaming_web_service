@@ -163,6 +163,38 @@ ALTER SEQUENCE public.groups_id_seq OWNED BY public.groups.id;
 
 
 --
+-- Name: likes; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.likes (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    music_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: likes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.likes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: likes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.likes_id_seq OWNED BY public.likes.id;
+
+
+--
 -- Name: musics; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -174,7 +206,8 @@ CREATE TABLE public.musics (
     image character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    searchable tsvector GENERATED ALWAYS AS (((setweight(to_tsvector('simple'::regconfig, (COALESCE(title, ''::character varying))::text), 'A'::"char") || setweight(to_tsvector('simple'::regconfig, (COALESCE(album_name, ''::character varying))::text), 'B'::"char")) || setweight(to_tsvector('simple'::regconfig, (COALESCE(artist_name, ''::character varying))::text), 'C'::"char"))) STORED
+    searchable tsvector GENERATED ALWAYS AS (((setweight(to_tsvector('simple'::regconfig, (COALESCE(title, ''::character varying))::text), 'A'::"char") || setweight(to_tsvector('simple'::regconfig, (COALESCE(album_name, ''::character varying))::text), 'B'::"char")) || setweight(to_tsvector('simple'::regconfig, (COALESCE(artist_name, ''::character varying))::text), 'C'::"char"))) STORED,
+    like_count integer DEFAULT 0
 );
 
 
@@ -246,7 +279,6 @@ CREATE TABLE public.user_musics (
     id bigint NOT NULL,
     user_id bigint NOT NULL,
     music_id bigint NOT NULL,
-    music_type integer DEFAULT 0,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -335,6 +367,13 @@ ALTER TABLE ONLY public.groups ALTER COLUMN id SET DEFAULT nextval('public.group
 
 
 --
+-- Name: likes id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.likes ALTER COLUMN id SET DEFAULT nextval('public.likes_id_seq'::regclass);
+
+
+--
 -- Name: musics id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -400,6 +439,14 @@ ALTER TABLE ONLY public.group_musics
 
 ALTER TABLE ONLY public.groups
     ADD CONSTRAINT groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: likes likes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.likes
+    ADD CONSTRAINT likes_pkey PRIMARY KEY (id);
 
 
 --
@@ -499,6 +546,20 @@ CREATE INDEX index_group_musics_on_user_id ON public.group_musics USING btree (u
 
 
 --
+-- Name: index_likes_on_music_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_likes_on_music_id ON public.likes USING btree (music_id);
+
+
+--
+-- Name: index_likes_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_likes_on_user_id ON public.likes USING btree (user_id);
+
+
+--
 -- Name: index_musics_on_searchable; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -548,6 +609,14 @@ CREATE UNIQUE INDEX index_users_on_reset_password_token ON public.users USING bt
 
 
 --
+-- Name: likes fk_rails_1e09b5dabf; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.likes
+    ADD CONSTRAINT fk_rails_1e09b5dabf FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: group_musics fk_rails_3a8bed9026; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -588,6 +657,14 @@ ALTER TABLE ONLY public.user_musics
 
 
 --
+-- Name: likes fk_rails_7fa5d47432; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.likes
+    ADD CONSTRAINT fk_rails_7fa5d47432 FOREIGN KEY (music_id) REFERENCES public.musics(id);
+
+
+--
 -- Name: user_musics fk_rails_c043cc0abe; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -620,6 +697,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220207161008'),
 ('20220208063354'),
 ('20220210063338'),
-('20220210064337');
+('20220210064337'),
+('20220224083200'),
+('20220224085250'),
+('20220224090356');
 
 

@@ -1,1 +1,8 @@
-$('#<%= @sort_condition %>_music_love_<%= @music.id %>').html("<%= j(render('musics/music_love', music: @music, sort_condition: @sort_condition)) %>")
+Swal.fire({
+  text: '재생목록에 추가되었습니다.',
+  showCloseButton: true,
+  allowOutsideClick: false,
+  confirmButtonText: '<a class="no-line text-white" href="<%= user_musics_path %>" target="_blank">재생목록 확인하기</a>',
+}).then(function(res) {
+  $(".<%= @sort_condition %>_check_music").prop('checked', false);
+});
