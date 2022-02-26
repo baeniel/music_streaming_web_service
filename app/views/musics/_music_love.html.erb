@@ -3,12 +3,12 @@
 <% else %>
   <i class="far fa-heart clickable" onclick="music_love(<%= music.id %>, '<%= sort_condition %>')"></i>
 <% end %>
-&nbsp;<%= music.user_musics.love.count %>
+&nbsp;<%= music.likes.count %>
 
 <script>
   function music_love(music, sort_condition) {
     $.ajax({
-      url: '/user_musics/',
+      url: '/likes/',
       type: 'POST',
       data: {
         music: music,
@@ -19,7 +19,7 @@
 
   function music_love_delete(music, sort_condition) {
     $.ajax({
-      url: '/user_musics/' + music,
+      url: '/likes/' + music,
       type: 'DELETE',
       data: {
         sort_condition: sort_condition

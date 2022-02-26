@@ -2,8 +2,7 @@ class MusicsController < ApplicationController
   def index
     @keyword = params[:music_search]
     @musics = Music.music_search(@keyword)
-    # @popular_musics = @musics.left_joins(:user_musics).group(:id).reorder('COUNT(user_musics.music_type = 1) DESC')
-    @popular_musics = @musics.joins("LEFT JOIN user_musics ON musics.id = user_musics.music_id and user_musics.music_type = 1").group(:id).reorder('COUNT(user_musics.music_type = 1) DESC')
+    @popular_musics = @musics.reorder(like_count: :desc)
     @new_musics = @musics.reorder(created_at: :desc)
   end
 end
